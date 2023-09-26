@@ -1,3 +1,5 @@
+import 'package:xpense_tracker/widget/nav_drawer.dart';
+
 import '../expense_model.dart';
 import 'package:flutter/material.dart';
 
@@ -130,6 +132,7 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavDrawer(),
       appBar: AppBar(
         title: Text(amountSpent),
         actions: [
@@ -237,6 +240,73 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                   ));
 
                   Navigator.pop(context);
+                _alert(context, "Your expense has been updated successfully");
+              },
+              child: Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showReportDialog(BuildContext context, index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Add Expense'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: InputDecoration(labelText: 'year'),
+                keyboardType: TextInputType.number,
+              ),
+
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Cancel'),
+            ),
+            index == -1? TextButton(
+              onPressed: () {
+                // Validate and add the expense
+                if (titleController.text.isNotEmpty && amountController.text.isNotEmpty) {
+                  _addExpense(Expense(
+                    id:'',
+                    title: titleController.text,
+                    amount: double.parse(amountController.text),
+                    // date: DateTime.now(),
+                  ));
+                  Navigator.pop(context);
+                }
+              },
+              child: Text('Add'),
+            ):TextButton(
+              onPressed: () {
+                //check if fields are empty, if yes, assign tehm to their old values
+                if(titleController.text.isEmpty){
+                  titleController.text = expenses[index].title.toString();
+                }
+
+                if(amountController.text.isEmpty){
+                  amountController.text = expenses[index].amount.toString();
+                }
+
+                //calling function
+                _updateExpense(index, Expense(
+                    id: expenses[index].id,
+                    title: titleController.text,
+                    amount: double.parse(amountController.text)
+                ));
+
+                Navigator.pop(context);
                 _alert(context, "Your expense has been updated successfully");
               },
               child: Text('Update'),

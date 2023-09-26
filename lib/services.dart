@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:xpense_tracker/expense_model.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.106.146/flutter_backend/expenses_actions.php';
+  static const ROOT = 'http://192.168.1.146/flutter_backend/expenses_actions.php';
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _ADD_EXPENSE_ACTION = 'ADD_EXPENSE';
   static const _UPDATE_EXPENSE_ACTION = 'UPDATE_EXPENSE';

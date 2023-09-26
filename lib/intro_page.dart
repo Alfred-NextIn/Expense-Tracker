@@ -31,7 +31,7 @@ class Welcome extends StatelessWidget {
                 child: Icon(
                   Icons.stacked_bar_chart_outlined,
                   size: 100,
-                  color: Colors.blue..shade500,
+                  color: Colors.blue.shade500,
                 ),
               ),
               SizedBox(height: 20.0),
